@@ -4,7 +4,7 @@
 /**
  * 系统配置
  */
-$_CONFIGS['system']['protocol']   = 'PATH_INFO';
+$_CONFIGS['system']['protocol']   = 'QUERY_STRING';
 $_CONFIGS['system']['index']   = '';
 $_CONFIGS['system']['log_output'] = 'none';
 $_CONFIGS['system']['timezone']   = 'PRC';
