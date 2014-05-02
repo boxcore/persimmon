@@ -23,7 +23,8 @@ $GLOBALS['request']['lang'] = 'zh_cn';
 
 // 载入应用程序配置
 require ROOT . 'conf'.DS.'config.php';
-$GLOBALS['boxcore'] = isset($_CONFIGS) ? isset($_CONFIGS) : array();
+$GLOBALS['boxcore'] = isset($_CONFIGS) ? $_CONFIGS : array();
+// array_merge($_CONFIGS, $GLOBALS);
 
 // 载入日志类
 require BOXCORE . 'core'.DS.'Logger.lib.php';
@@ -56,3 +57,36 @@ if( ! parse_uri( $GLOBALS['request']['uri'] ) ) {
     show_404();
 }
 
+// 挂载钩子
+mount_hooks( $GLOBALS['request']['uri'] );
+
+/**
+ * base controller
+ */
+abstract class _Control { public function __construct() {} }
+
+// Controller预处理
+$__cont_file = ROOT . $GLOBALS['request']['file'];
+if( !is_file( $__cont_file ) ) trigger_error( "Can\'t find controller file: {$__cont_file}", E_USER_ERROR ); 
+require( $__cont_file );
+
+$__class_name = $GLOBALS['request']['class'];
+
+if( !class_exists( $__class_name ) ) trigger_error( "Can\'t find class: {$__class_name}", E_USER_ERROR );
+$__boxcore = new $__class_name();
+
+$__method = $GLOBALS['request']['fn'];
+if( !method_exists( $__boxcore, $__method ) ) trigger_error( "Can\'t find method: {$__method}", E_USER_ERROR );
+
+$__params = isset($GLOBALS['request']['params']) ? $GLOBALS['request']['params'] : array();
+
+// 执行action 前置钩子
+run_func_coll( 'pre_control' );
+
+// 执行action()方法
+call_user_func_array( array($__boxcore, $__method), $__params );
+
+// 执行action 后置钩子
+run_func_coll( 'post_control' );
+
+exit;

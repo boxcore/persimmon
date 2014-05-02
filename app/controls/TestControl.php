@@ -1,13 +1,12 @@
 <?php if ( !defined('BOXCORE') ) exit('No direct script access allowed');
 
-echo dirname(__FILE__);
-class IndexControl
+class TestControl extends _Control
 {
     public function __construct() {
-        echo 1234;
+        parent::__construct();
     }
 
     public function index() {
-        echo 'i am index';
+        echo 'i am test';
     }
 }

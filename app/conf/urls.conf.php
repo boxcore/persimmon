@@ -17,4 +17,5 @@ return array(
     /*==默认控制器=============================*/
     'default'               => array('c'=>'Index'),
     '404.html'              => array('c'=>'Notfind'),
+    'test.html' => array('c'=>'Test', 'f'=>'index'),
 );

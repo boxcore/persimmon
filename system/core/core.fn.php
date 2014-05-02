@@ -82,7 +82,7 @@ function transcribe() {
 function show_404() {
     header('HTTP/1.1 404 Not Found');
     Logger::error( '404 Not Found - ' . $GLOBALS['request']['url'] );
-    if( $_CONFIGS['system']['environment'] == 'development' ) {
+    if( conf('boxcore','system','environment') == 'development' ) {
         show_error( E_ERROR, '404 Not Found - ' . $GLOBALS['request']['url'] );
     }
     else {
@@ -276,7 +276,7 @@ function get_current_url() {
  */
 function get_current_uri() {
     $uri = 'default';
-    if( conf('system', 'protocol') == 'PATH_INFO' ) {     // pathinfo url
+    if( conf('boxcore', 'system', 'protocol') == 'PATH_INFO' ) {     // pathinfo url
         $uri = !empty( $_SERVER['PATH_INFO'] ) ? trim( $_SERVER['PATH_INFO'], '/') : 'default';
     }
     else {  // query string url
