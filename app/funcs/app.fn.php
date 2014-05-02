@@ -1,0 +1,1 @@
+<?php if ( !defined('BOXCORE') ) exit('No direct script access allowed');

@@ -1,8 +1,6 @@
-Persimmon Framkset
-=======
+BoxCore Frameworl
+=================
 
-persimmon php mvc frameset
+boxcore framework is a php mvc framework, version 0.1 to 1.0 for pack persimmon.
 
-
-version:
-. testing product
+view more introduce in framework.boxcore.org
