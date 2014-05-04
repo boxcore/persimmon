@@ -1,6 +1,8 @@
-BoxCore Frameworl
+BOXCORE框架
 =================
 
-boxcore framework is a php mvc framework, version 0.1 to 1.0 for pack persimmon.
+BOXCORE框架是PHP下的MVC框架，现在处于第一版开发阶段，版本项目名为 Persimmon（柿子）
 
-view more introduce in framework.boxcore.org
+v0.1版支持链接访问的方式有PATH_INFO和QUERY_INFO
+
+框架最求最简化。
