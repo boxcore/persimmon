@@ -11,6 +11,8 @@
     @author chunze.huang
   ----------------------------------------------------------------------
 */
+// 记录开始运行时间
+$GLOBALS['_beginTime'] = microtime(TRUE);
 
 // 分隔符
 define( 'DS', DIRECTORY_SEPARATOR );
