@@ -55,9 +55,10 @@ class Logger {
         elseif( 'database' == $output ) {
             self::__output4database($level, $msg);
         }
-        elseif( 'console' == $output ) {
-            self::__output4console($level, $msg);
-        }
+        // 关闭elipse控制台
+        // elseif( 'console' == $output ) {
+        //     self::__output4console($level, $msg);
+        // }
         else {
             return;
         }
@@ -129,7 +130,7 @@ class Logger {
         $last_file = 0; 
         
         // 获取日志输出目录，如果目录不存在，创建目录
-        $output_dir = ROOT . conf( 'xxoo', 'logs_dir' ) .DS. date('Y', $time). DS .date('m', $time). DS .date('d', $time);
+        $output_dir = APP . conf( 'xxoo', 'logs_dir' ) .DS. date('Y', $time). DS .date('m', $time). DS .date('d', $time);
         mkdirs( $output_dir );
 
         // 获取当前应输出的日志文件

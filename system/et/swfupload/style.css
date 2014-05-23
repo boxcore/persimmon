@@ -1,0 +1,73 @@
+.swfupload-ul li{list-style:none}
+
+.swfupload-ul .swfupload-li {
+    margin-right: 8px;
+    margin-bottom: 8px;
+    width: 100px;
+    height: 100px;
+    float: left;
+    border:1px solid #dcdcdc;
+
+}
+.swfupload-ul .clb{clear: both}
+
+.swfupload-ul {
+    overflow: hidden;
+    padding: 0;
+}
+
+.swfupload-ul li {
+    float: left;
+    position: relative;
+}
+
+.swfupload-ul .swfupload-status-bar {
+    background-color: #FFFFFF;
+    border: 1px solid #dcdcdc;
+    display: block;
+    height: 6px;
+    left: 2px;
+    padding: 1px;
+    position: absolute;
+    top: 53px;
+    width: 94%;
+}
+.swfupload-ul .swfupload-status-bar span {
+    background-color: #7DD200;
+    display: block;
+    height: 6px;
+}
+
+
+.swfupload-ul .swfupload-li .hover {
+    visibility: hidden;
+}
+.swfupload-ul .swfupload-li .swfupload-del {
+    margin: 0;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    background-position: 0 -85px;
+    height: 17px;
+    overflow: hidden;
+    width: 17px;
+    background-image: url(close.gif);
+    background-color: #fff;
+    border: 1px solid #dcdcdc;
+
+}
+/*
+.swfupload-ul .swfupload-li .del:hover{
+    background-position: 0 -102px;
+}
+*/
+.swfupload-ul .swfupload-li .swfupload-img-content{
+    display: block;
+    overflow: hidden;
+    text-align: center;
+  /*  height: 100%;
+    width: 100%;
+*/
+}
+
+.swfupload-ul .swfupload {position: absolute;bottom: 0;left: 0}

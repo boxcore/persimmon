@@ -44,7 +44,7 @@ function show_error( $severity, $message='', $filepath='', $line='' ) {
         include BOXCORE.'core'.DS.'error.php';
     }
     else {
-        include ROOT.'errors'.DS.'error.php';
+        include APP.'errors'.DS.'error.php';
     }
     exit;
 }
@@ -86,7 +86,7 @@ function show_404() {
         show_error( E_ERROR, '404 Not Found - ' . $GLOBALS['request']['url'] );
     }
     else {
-        include ROOT.'errors'.DS.'404.php';
+        include APP.'errors'.DS.'404.php';
     }
     exit;
 }
@@ -96,7 +96,7 @@ function show_404() {
  */
 function show_50x() {
     header('HTTP/1.1 503 Service Temporarily Unavailable');
-    include ROOT.'errors'.DS.'error.php';
+    include APP.'errors'.DS.'error.php';
     exit;
 }
 
@@ -107,7 +107,7 @@ function show_50x() {
  * @return bool
  */
 function parse_uri( $uri ) {
-    $urls_file = ROOT . 'conf'.DS.'urls.conf.php';
+    $urls_file = APP . 'conf'.DS.'urls.conf.php';
     if( !file_exists( $urls_file ) ) trigger_error("Can\'t find file - {$urls_file}");
     $urls = include( $urls_file );  // 载入URL配置
     if( !isset( $urls ) || !is_array( $urls ) ) trigger_error("Invalid urls config in {$urls_file}");
@@ -162,7 +162,7 @@ function parse_uri( $uri ) {
  */
 function mount_hook( $hc, $params=array() ) {
     // 载入钩子文件
-    $hook_file = ROOT.'hooks'.DS.$hc['file'];
+    $hook_file = APP.'hooks'.DS.$hc['file'];
     if( !file_exists($hook_file) ) trigger_error("Can\'t find file - {$hook_file}");
     require_once $hook_file;
                 
@@ -185,7 +185,7 @@ function mount_hook( $hc, $params=array() ) {
  * @param string $uri
  */
 function mount_hooks($uri) {
-    $hook_conf_file =  ROOT.'conf'.DS.'hooks.conf.php';
+    $hook_conf_file =  APP.'conf'.DS.'hooks.conf.php';
     if( !file_exists($hook_conf_file) ) trigger_error("Can\'t find file - {$hook_conf_file}");
     $hooks = include( $hook_conf_file );    // 载入URL配置
     if( !isset($hooks) || !is_array($hooks) ) trigger_error('Invalid hooks config');
@@ -257,7 +257,7 @@ function gen_site_domain() {
     $http_protocol = ( ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ) ? 'https://' : 'http://';
     $site_domain = rtrim( $http_protocol . $_SERVER ['HTTP_HOST'], '/' ) . '/';
     $__droot = str_replace( '\\', '/', $_SERVER['DOCUMENT_ROOT'] );
-    $__root  = str_replace( '\\', '/', ROOT );
+    $__root  = str_replace( '\\', '/', APP );
     $__root  = trim( str_replace( $__droot, '', $__root ), '/' );
     return $site_domain . $__root;
 }
@@ -276,7 +276,7 @@ function get_current_url() {
  */
 function get_current_uri() {
     $uri = 'default';
-    if( conf('boxcore', 'system', 'protocol') == 'PATH_INFO' ) {     // pathinfo url
+    if( conf('system', 'protocol') == 'PATH_INFO' ) {     // pathinfo url
         $uri = !empty( $_SERVER['PATH_INFO'] ) ? trim( $_SERVER['PATH_INFO'], '/') : 'default';
     }
     else {  // query string url
@@ -381,7 +381,7 @@ if (!function_exists('lang')) {
     function lang($key) {
         static $language = array();
         if( empty( $language ) ) {
-            $lang_file = ROOT . 'language'. DS .$GLOBALS['request']['lang'].'.lang.php';
+            $lang_file = APP . 'language'. DS .$GLOBALS['request']['lang'].'.lang.php';
             if( !file_exists( $lang_file ) ) show_error( 'Can\'t find file - ' . $lang_file );
             $lang = require_once( $lang_file ); // 载入URL配置
             if( !isset( $lang ) || !is_array( $lang ) ) show_error( 'Invalid language config in ' . $lang_file );
@@ -405,7 +405,7 @@ if (!function_exists('lang')) {
  * @return void/string
  */
 function render( $tpl = '', $data = array(), $is_return = FALSE ) {
-    $_tpl = ROOT . 'views/' . $tpl . '.tpl.php';
+    $_tpl = APP . 'views/' . $tpl . '.tpl.php';
     extract($data);
     
     ob_start();

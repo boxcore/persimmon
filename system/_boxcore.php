@@ -20,13 +20,18 @@ define( 'DS', DIRECTORY_SEPARATOR );
 // 项目根目录路径
 define( 'BOXCORE', dirname(__FILE__).DS);
 
+
 // 设置当前请求语言，默认设置为简体中文
 $GLOBALS['request']['lang'] = 'zh_cn';
 
 // 载入应用程序配置
-require ROOT . 'conf'.DS.'config.php';
-$GLOBALS['boxcore'] = isset($_CONFIGS) ? $_CONFIGS : array();
+require APP . 'conf'.DS.'config.php';
+$GLOBALS['system'] = isset($_CONFIGS['system']) ? $_CONFIGS['system'] : array();
+$GLOBALS['app'] = isset($_CONFIGS['app']) ? $_CONFIGS['app'] : array();
+$GLOBALS['db'] = isset($_CONFIGS['db']) ? $_CONFIGS['db'] : array();
 // array_merge($_CONFIGS, $GLOBALS);
+
+define( 'ENV', $GLOBALS['app']['environment']);
 
 // 载入日志类
 require BOXCORE . 'core'.DS.'Logger.lib.php';
@@ -38,11 +43,10 @@ require BOXCORE . 'core'.DS.'core.fn.php';
 require BOXCORE . 'core'.DS.'db.fn.php';
 
 // 载入程序全局函数（程序公用函数库）
-require ROOT . 'funcs'.DS.'app.fn.php';
+require APP . 'funcs'.DS.'app.fn.php';
 
 // 取消自动转义
 transcribe();
-
 // 如果用户没有设置site_domain，则自动配置生成site_domain
 if( !$site_domain = conf( 'app', 'site_domain' ) ) {
     $GLOBALS['app']['site_domain'] = gen_site_domain();
@@ -59,6 +63,7 @@ if( ! parse_uri( $GLOBALS['request']['uri'] ) ) {
     show_404();
 }
 
+
 // 挂载钩子
 mount_hooks( $GLOBALS['request']['uri'] );
 
@@ -68,7 +73,7 @@ mount_hooks( $GLOBALS['request']['uri'] );
 abstract class _Control { public function __construct() {} }
 
 // Controller预处理
-$__cont_file = ROOT . $GLOBALS['request']['file'];
+$__cont_file = APP . $GLOBALS['request']['file'];
 if( !is_file( $__cont_file ) ) trigger_error( "Can\'t find controller file: {$__cont_file}", E_USER_ERROR ); 
 require( $__cont_file );
 
